@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Shortest Path with Clean Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+    <style>
+        #map {
+            height: 100vh;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+
+    <script>
+        // Initialize the map
+        var map = L.map('map').setView([28.2380, 83.9956], 11); // Default center
+
+        // Add a clean tile layer (CartoDB Positron)
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/">CARTO</a>',
+            subdomains: 'abcd',
+            maxZoom: 19
+        }).addTo(map);
+
+        // Variables for route markers
+        let startPoint = null;
+        let endPoint = null;
+        let routeControl = null;
+
+        // Handle map click to set points
+        map.on('click', function (e) {
+            if (!startPoint) {
+                // Set start point
+                startPoint = L.marker(e.latlng, { draggable: true }).addTo(map).bindPopup("Start Point").openPopup();
+            } else if (!endPoint) {
+                // Set end point
+                endPoint = L.marker(e.latlng, { draggable: true }).addTo(map).bindPopup("End Point").openPopup();
+
+                // Draw shortest path route
+                if (routeControl) map.removeControl(routeControl); // Remove existing route
+
+                routeControl = L.Routing.control({
+                    waypoints: [
+                        L.latLng(startPoint.getLatLng()),
+                        L.latLng(endPoint.getLatLng())
+                    ],
+                    router: L.Routing.osrmv1({
+                        serviceUrl: 'https://router.project-osrm.org/route/v1',
+                        profile: 'driving',
+                        options: {
+                            alternatives: false,
+                            steps: true
+                        }
+                    }),
+                    lineOptions: {
+                        styles: [{ color: 'blue', weight: 4 }]
+                    },
+                    createMarker: function () { return null; }, // Disable waypoints markers
+                    routeWhileDragging: false
+                }).addTo(map);
+            }
+        });
+
+        // Allow reset by clearing markers and route
+        map.on('contextmenu', function () {
+            if (startPoint) map.removeLayer(startPoint);
+            if (endPoint) map.removeLayer(endPoint);
+            if (routeControl) map.removeControl(routeControl);
+
+            startPoint = null;
+            endPoint = null;
+            routeControl = null;
+        });
+    </script>
+</body>
+</html>

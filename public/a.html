@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custom Map with Markers</title>
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    #map {
+      height: 100vh; /* Full screen height */
+    }
+    #controls {
+      position: absolute;
+      top: 10px;
+      left: 80px;
+      background: white;
+      padding: 10px;
+      border: 1px solid #ccc;
+      z-index: 1000;
+      border-radius: 5px;
+    }
+    input, button {
+      margin: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div id="controls">
+    <input type="text" id="locationName" placeholder="Enter location name" />
+    <input type="text" id="coordinates" placeholder="Latitude,Longitude" />
+    <button id="addMarkerButton">Add Marker</button>
+  </div>
+  <div id="map"></div>
+  
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    // Initialize the map
+    const map = L.map('map', {
+      zoomControl: true
+    }).setView([30.769484006688415, 76.57573912482626], 17);
+
+    // Add OpenStreetMap tile layer
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Function to add a marker
+    document.getElementById('addMarkerButton').addEventListener('click', () => {
+      const name = document.getElementById('locationName').value.trim();
+      const coordinates = document.getElementById('coordinates').value.trim().split(',');
+      const latitude = parseFloat(coordinates[0]);
+      const longitude = parseFloat(coordinates[1]);
+
+      if (!name || coordinates.length !== 2 || isNaN(latitude) || isNaN(longitude)) {
+        alert("Please enter valid location name and coordinates (lat,lon).");
+        return;
+      }
+
+      // Send the marker data to the server
+      fetch('/api/markers', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: name,
+          lat: latitude,
+          lng: longitude
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Marker added successfully:', data);
+        alert('Marker added successfully!');
+        // Clear the form fields
+        document.getElementById('locationName').value = '';
+        document.getElementById('coordinates').value = '';
+        // Refresh the markers on the map
+        map.eachLayer(layer => {
+          if (layer instanceof L.Marker) {
+            map.removeLayer(layer);
+          }
+        });
+        fetchMarkers();
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        alert('Error adding marker. Please try again.');
+      });
+    });
+
+    // Function to fetch markers from the server
+    function fetchMarkers() {
+      fetch('/api/markers')
+        .then(response => response.json())
+        .then(markers => {
+          markers.forEach(marker => {
+            const point = [marker.location.coordinates[1], marker.location.coordinates[0]];
+            const mapMarker = L.marker(point).addTo(map);
+            mapMarker.bindTooltip(`<b>${marker.name}</b>`, {
+              permanent: true,
+              direction: 'top'
+            });
+          });
+        })
+        .catch(error => {
+          console.error('Error fetching markers:', error);
+        });
+    }
+
+    // Call fetchMarkers after the map is initialized
+    fetchMarkers();
+
+    // Add click event listener to the map
+    map.on('click', function (e) {
+      // Fill the coordinates input field
+      document.getElementById('coordinates').value = `${e.latlng.lat.toFixed(6)},${e.latlng.lng.toFixed(6)}`;
+      
+      // Optionally, log for debugging
+      console.log('Clicked coordinates:', `${e.latlng.lat.toFixed(6)},${e.latlng.lng.toFixed(6)}`);
+    });
+  </script>
+</body>
+</html>
+

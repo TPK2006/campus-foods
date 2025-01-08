@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Delivery App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="main_user_styles.css">
+</head>
+<body>
+    <div id="root">
+        <header class="header">
+            <div class="container header-content">
+                <div class="header-left">
+                    <a href="main_user.html">
+                        <img src="menu-images/f598ee10179fe7a47ffea40ce625b21d.png" alt="Chandigarh University Logo" class="university-logo">
+                      </a>
+                      
+                    <h1 class="logo">CU Foodies Corner</h1>
+                    <div class="current-location" id="currentLocation">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Location Loading...</span>
+                    </div>
+                    <div class="search-container">
+                        <input type="text" id="searchInput" class="search-input" placeholder="Search for restaurants or dishes">
+                        <div id="searchResults" class="search-results"></div>
+                        <i class="fas fa-search search-icon"></i>
+                    </div>
+                </div>
+                <nav class="header-nav">
+                    <button class="btn btn-ghost" id="homeBtn">Home</button>
+                    <button class="btn btn-ghost cart-button" id="cartBtn">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span id="cartBadge" class="cart-badge">0</span>
+                    </button>
+                    <div class="profile-dropdown">
+                        <button class="btn btn-ghost profile-btn">
+                            <i class="fas fa-user"></i>
+                            Profile
+                        </button>
+                        <div class="dropdown-content">
+                            <a href="#"><i class="fas fa-user-circle"></i> My Profile</a>
+                            <a href="addresses.html" id="addressBtn"><i class="fas fa-map-marker-alt"></i> Addresses</a>
+                            <a href="orders.html" id="yourOrdersBtn"><i class="fas fa-utensils"></i> Your Orders</a>
+                            <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="container">
+                <div id="homeView">
+                    <section class="hero-section">
+                      <div class="hero-card">
+                        <div class="hero-content">
+                          <h1 class="hero-title">Welcome to CU Foodies Corner</h1>
+                          <h2>Crave It → Order It → Enjoy It</h2>
+                          <p class="hero-subtitle">Order from your favorite restaurants</p>
+                        </div>
+                      </div>
+                    </section>
+                  
+                    <section>
+                      <h2 class="section-title" id="restaurantsTitle">Nearby Restaurants</h2>
+                      <div id="restaurantGrid" class="restaurant-grid"></div>
+                    </section>
+                  
+                    <section id="availableDishesSection" class="hidden">
+                      <h2 class="section-title">Available Dishes</h2>
+                      <div id="dishesGrid" class="dishes-grid"></div>
+                    </section>
+                </div>
+
+                <div id="menuView" class="hidden">
+                    <button id="backToRestaurantsBtn" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Back to Restaurants
+                    </button>
+                    <div class="restaurant-info">
+                        <h2 id="restaurantName"></h2>
+                        <p id="restaurantCategory"></p>
+                    </div>
+                    <div id="categoryContainer" class="menu-categories"></div>
+                    <div id="menuItemsContainer" class="menu-items"></div>
+                    <div id="foodItemDetails" class="hidden"></div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div class="container footer-content">
+                <div>
+                    <h3 class="footer-title">FoodieExpress</h3>
+                    <p class="footer-text">Delicious food delivered to your doorstep</p>
+                </div>
+                <div>
+                    <h3 class="footer-title">Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link">Home</a></li>
+                        <li><a href="#" class="footer-link">Restaurants</a></li>
+                        <li><a href="#" class="footer-link">About Us</a></li>
+                        <li><a href="#" class="footer-link">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="footer-title">Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="main_user.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Part-Time Delivery Partner Authentication - CU Food Delivery</title>
+    <link rel="stylesheet" href="auth_styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="auth-container">
+        <img src="uploads/f598ee10179fe7a47ffea40ce625b21d.png" alt="CU Food Delivery Logo" class="auth-logo">
+        <h1>Welcome to CU Food Delivery</h1>
+        <div id="loginView">
+            <h2>Login as Delivery Partner</h2>
+            <form id="loginForm" class="auth-form">
+                <div class="form-group">
+                    <label for="loginIdentifier">Email or Phone Number</label>
+                    <input type="text" id="loginIdentifier" name="identifier" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" name="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+            <p class="auth-link">Don't have an account? <a href="#" id="showSignup">Sign up</a></p>
+        </div>
+        <div id="signupView" class="hidden">
+            <h2>Create a Delivery Partner Account</h2>
+            <form id="signupForm" class="auth-form">
+                <div class="form-group">
+                    <label for="profilePic">Profile Picture (Optional)</label>
+                    <input type="file" id="profilePic" name="profilePic" accept="image/*">
+                </div>
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" name="fullName" required>
+                </div>
+                <div class="form-group">
+                    <label for="uidNo">UID Number</label>
+                    <input type="text" id="uidNo" name="uidNo" required>
+                </div>
+                <div class="form-group">
+                    <label for="idCardPhoto">ID Card Photo</label>
+                    <input type="file" id="idCardPhoto" name="idCardPhoto" accept="image/*" required>
+                    <small>Note: Verification takes 1 working day</small>
+                </div>
+                <div class="form-group">
+                    <label for="cuEmail">CU Email</label>
+                    <input type="email" id="cuEmail" name="cuEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="personalEmail">Personal Email</label>
+                    <input type="email" id="personalEmail" name="personalEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Create Account</button>
+            </form>
+            <p class="auth-link">Already have an account? <a href="#" id="showLogin">Login</a></p>
+        </div>
+        <p class="auth-link terms-link">By continuing, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</p>
+    </div>
+    <script src="partTime_auth.js"></script>
+</body>
+</html>

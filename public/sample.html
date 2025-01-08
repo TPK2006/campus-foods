@@ -1,0 +1,90 @@
+document.addEventListener('DOMContentLoaded', function() {
+    // ... (previous code remains unchanged)
+
+    const menuTab = document.getElementById('menu');
+    const menuItemsSection = document.getElementById('menuItems');
+    const addMenuItemForm = document.getElementById('addMenuItemForm');
+    const menuToggle = document.createElement('select');
+
+    // Create and add the toggle dropdown
+    menuToggle.innerHTML = `
+        <option value="menuItems">Menu Items</option>
+        <option value="addNewItem">Add New Item</option>
+    `;
+    menuToggle.className = 'menu-toggle';
+    menuTab.insertBefore(menuToggle, menuTab.firstChild);
+
+    // Function to toggle menu sections
+    function toggleMenuSections() {
+        if (menuToggle.value === 'menuItems') {
+            menuItemsSection.style.display = 'grid';
+            addMenuItemForm.style.display = 'none';
+        } else {
+            menuItemsSection.style.display = 'none';
+            addMenuItemForm.style.display = 'block';
+        }
+    }
+
+    // Initial toggle
+    toggleMenuSections();
+
+    // Add event listener for toggle changes
+    menuToggle.addEventListener('change', toggleMenuSections);
+
+    // ... (rest of the code remains unchanged)
+
+    function resetMenuForm() {
+        addMenuItemForm.reset();
+        toppingsList.innerHTML = '';
+        sizesList.innerHTML = '';
+        const submitButton = addMenuItemForm.querySelector('button[type="submit"]');
+        submitButton.textContent = 'Add Item';
+        submitButton.removeAttribute('data-edit-id');
+        menuImagePreview.innerHTML = '<span class="text-gray-400">Image preview will appear here</span>';
+        
+        // Switch back to menu items view after adding/updating an item
+        menuToggle.value = 'menuItems';
+        toggleMenuSections();
+    }
+
+    // ... (rest of the code remains unchanged)
+
+    async function editMenuItem(e) {
+        const itemId = e.target.getAttribute('data-id');
+        try {
+            const response = await fetch(`/api/menu-item/${itemId}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            if (response.ok) {
+                const item = await response.json();
+                document.getElementById('name').value = item.name;
+                document.getElementById('price').value = item.price;
+                document.getElementById('type').value = item.type;
+                document.getElementById('description').value = item.description;
+                document.getElementById('estimatedPreparationTime').value = item.estimatedPreparationTime;
+                
+                // Update image preview
+                if (item.imagePath) {
+                    menuImagePreview.innerHTML = `<img src="${item.imagePath}" alt="Preview" class="max-w-full h-auto">`;
+                } else {
+                    menuImagePreview.innerHTML = '<span class="text-gray-400">No image available</span>';
+                }
+                
+                // ... (rest of the editMenuItem function remains unchanged)
+
+                // Switch to the "Add New Item" view when editing
+                menuToggle.value = 'addNewItem';
+                toggleMenuSections();
+            } else {
+                console.error('Failed to fetch item details');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+    // ... (rest of the code remains unchanged)
+});
+

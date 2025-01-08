@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivery Partner Management System</title>
+    <link rel="stylesheet" href="partTime.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>Delivery Partner Dashboard</h1>
+            <div id="profile-overview">
+                <img src="https://via.placeholder.com/50" alt="Profile Picture" id="profile-picture">
+                <div id="profile-details">
+                    <h2 id="partner-name">Loading...</h2>
+                    <p id="partner-id">ID: Loading...</p>
+                    <p id="total-deliveries">Total Deliveries: 0</p>
+                </div>
+            </div>
+        </header>
+
+        <nav>
+            <button class="nav-button active" data-tab="dashboard">Dashboard</button>
+            <button class="nav-button" data-tab="accepted-orders">Accepted Orders</button>
+            <button class="nav-button" data-tab="performance">Performance</button>
+        </nav>
+
+        <main>
+            <section id="dashboard" class="tab-content active">
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <h3>Earnings Summary</h3>
+                        <p>Total Earnings: ₹<span id="total-earnings">500.00</span></p>
+                        <p>Current Balance: ₹<span id="current-balance">75.00</span></p>
+                        <button id="redeem-earnings">Redeem</button>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3>Order Summary</h3>
+                        <p>Total Orders: <span id="total-orders">150</span></p>
+                        <p>Strike Rate: <span id="strike-rate">0%</span></p>
+                    </div>
+
+                </div>
+                <div class="available-orders">
+                    <h2>Available Orders</h2>
+                    <div id="order-list">
+                        <!-- Available order cards will be dynamically added here -->
+                    </div>
+                </div>
+            </section>
+
+            <section id="accepted-orders" class="tab-content">
+                <h2>Accepted Orders</h2>
+                <div id="accepted-order-list">
+                    <!-- Accepted order cards will be dynamically added here -->
+                </div>
+            </section>
+
+            <section id="performance" class="tab-content">
+                <h2>Performance Monitoring</h2>
+                <div class="performance-grid">
+                    <div class="performance-card">
+                        <h3>Statistics & Insights</h3>
+                        <canvas id="performance-chart"></canvas>
+                    </div>
+                    <div class="performance-card">
+                        <h3>Timestamp History</h3>
+                        <ul id="timestamp-history">
+                            <!-- Timestamp history items will be dynamically added here -->
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="notification-container"></div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modal-title"></h2>
+            <p id="modal-message"></p>
+            <div id="modal-actions"></div>
+        </div>
+    </div>
+    <div id="verification-modal" class="modal">
+        <div class="modal-content">
+            <h2>Enter Verification Code</h2>
+            <input type="text" id="verification-code-input" placeholder="Enter 4-digit code">
+            <button id="submit-verification-code">Submit</button>
+            <button id="cancel-verification">Cancel</button>
+        </div>
+    </div>
+
+    <script src="partTime.js"></script>
+</body>
+</html>
+

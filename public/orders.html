@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Orders - CU Food Delivery</title>
+    <link rel="stylesheet" href="main_user_styles.css">
+    <link rel="stylesheet" href="orders.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div id="root">
+        <header class="header">
+            <div class="container header-content">
+                <div class="header-left">
+                    <a href="main_user.html">
+                        <a href="main_user.html">
+                            <img src="menu-images/f598ee10179fe7a47ffea40ce625b21d.png" alt="Chandigarh University Logo" class="university-logo">
+                          </a>
+                    </a>
+                    <h1 class="logo">CU Food Delivery</h1>
+                </div>
+                <nav class="header-nav">
+                    <button class="btn btn-ghost" id="homeBtn">Home</button>
+                    <button class="btn btn-ghost cart-button" id="cartBtn">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span id="cartBadge" class="cart-badge">0</span>
+                    </button>
+                    <div class="profile-dropdown">
+                        <button class="btn btn-ghost profile-btn">
+                            <i class="fas fa-user"></i>
+                            Profile
+                        </button>
+                        <div class="dropdown-content">
+                            <a href="#"><i class="fas fa-user-circle"></i> My Profile</a>
+                            <a href="addresses.html" id="addressBtn"><i class="fas fa-map-marker-alt"></i> Addresses</a>
+                            <a href="#" class="active"><i class="fas fa-utensils"></i> Your Orders</a>
+                            <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="container">
+                <div id="ordersView">
+                    <h2>Your Orders</h2>
+                    <div class="orders-filter">
+                        <select id="orderTypeFilter" class="order-filter-dropdown">
+                            <option value="current">Current Orders</option>
+                            <option value="past">Past Orders</option>
+                        </select>
+                    </div>
+                    <div id="ordersContainer"></div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div class="container footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-title">About Us</h3>
+                    <p class="footer-text">CU Food Delivery is the premier food delivery service for Chandigarh University students.</p>
+                </div>
+                <div class="footer-section">
+                    <h3 class="footer-title">Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link">Privacy Policy</a></li>
+                        <li><a href="#" class="footer-link">Terms of Service</a></li>
+                        <li><a href="#" class="footer-link">Contact Us</a></li>
+                        <li><a href="#" class="footer-link">FAQs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3 class="footer-title">Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="orders.js"></script>
+</body>
+</html>
+
